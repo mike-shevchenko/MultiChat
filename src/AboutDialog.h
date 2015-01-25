@@ -7,11 +7,11 @@ class AboutDialog : public QDialog, private Ui::AboutDialog
 {
     Q_OBJECT
 public:
-    explicit AboutDialog(QWidget *parent = 0);
+    AboutDialog(QWidget *parent, const QString &title);
 
-    static void showModal(QWidget *parent = 0)
+    static void showModal(QWidget *parent, const QString &title)
     {
-        AboutDialog *dialog = new AboutDialog(parent);
+        AboutDialog *dialog = new AboutDialog(parent, title);
         connect(dialog, SIGNAL(finished(int)),
             dialog, SLOT(deleteLater()));
         dialog->setModal(true);

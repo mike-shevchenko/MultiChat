@@ -25,12 +25,13 @@ int main(int argc, char *argv[])
     app.setOrganizationName("Mike Shevchenko");
     app.setApplicationName("MultiChat");
 
-    WelcomeDialog welcomeDialog(nullptr);
+    WelcomeDialog welcomeDialog(nullptr, app.applicationName());
     if (welcomeDialog.exec() == QDialog::Rejected) {
         return 1;
     }
 
-    MainDialog dialog(nullptr, welcomeDialog.getChatEngine());
+    MainDialog dialog(nullptr, app.applicationName(),
+        welcomeDialog.getChatEngine());
     dialog.show();
 
     return app.exec();

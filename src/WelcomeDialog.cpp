@@ -4,10 +4,11 @@
 
 #include "AboutDialog.h"
 
-WelcomeDialog::WelcomeDialog(QWidget *parent)
+WelcomeDialog::WelcomeDialog(QWidget *parent, const QString &title)
     : QDialog(parent)
 {
     setupUi(this);
+    setWindowTitle(title);
 
     try {
         multicaster = new Multicaster(this, Multicaster::defaultSettings);
@@ -40,7 +41,7 @@ void WelcomeDialog::handleMulticasterError(const QString &message)
 
 void WelcomeDialog::aboutButtonClicked()
 {
-    AboutDialog::showModal(this);
+    AboutDialog::showModal(this, windowTitle());
 }
 
 void WelcomeDialog::startButtonClicked()
@@ -49,8 +50,8 @@ void WelcomeDialog::startButtonClicked()
         chatEngine = new Chat::Engine(this, Chat::Engine::defaultSettings,
             nickEdit->text(), multicaster);
     } catch (Chat::BadValueEx &) {
-        QMessageBox::critical(this, "MultiChat",
-            tr("Your nick is invalid: contains '|' characters or is too long."));
+        QMessageBox::critical(this, windowTitle(),
+            tr("Your nick should not be empty, too long or contain '|' characters."));
         nickEdit->selectAll();
         return;
     }

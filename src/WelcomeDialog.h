@@ -17,7 +17,7 @@ class WelcomeDialog : public QDialog, private Ui::WelcomeDialog
 {
     Q_OBJECT
 public:
-    explicit WelcomeDialog(QWidget *parent = 0);
+    WelcomeDialog(QWidget *parent, const QString &title);
 
     Chat::Engine *getChatEngine()
     {

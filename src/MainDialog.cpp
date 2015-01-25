@@ -76,10 +76,12 @@ ContactListWidgetItem *MainDialog::findContactListItem(
 
 ///////////////////////////////////////////////////////////////////////////
 
-MainDialog::MainDialog(QWidget *parent, Chat::Engine *chatEngine)
+MainDialog::MainDialog(QWidget *parent, const QString &title,
+    Chat::Engine *chatEngine)
     : QDialog(parent), chatEngine(chatEngine)
 {
     setupUi(this);
+    setWindowTitle(title);
 
     sendPromptLabel->setText(chatEngine->getOwnNick() + ">");
 
@@ -134,7 +136,8 @@ void MainDialog::returnPressed()
     try {
         chatEngine->sendText(text);
     } catch (BadValueEx &e) {
-        QMessageBox::critical(this, "MultiChat", tr("Text is too long."));
+        QMessageBox::critical(this, windowTitle(),
+            tr("Text is too long."));
         textEdit->selectAll();
     }
 }
@@ -215,5 +218,12 @@ void MainDialog::appendLine(const QString &text, const QString &style)
 
 void MainDialog::aboutButtonClicked()
 {
-    AboutDialog::showModal(this);
+    AboutDialog::showModal(this, windowTitle());
+}
+
+void MainDialog::keyPressEvent(QKeyEvent *e)
+{
+    // Prevent closing the dialog with Esc key.
+    if(e->key() != Qt::Key_Escape)
+        QDialog::keyPressEvent(e);
 }

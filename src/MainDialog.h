@@ -11,7 +11,8 @@ class MainDialog : public QDialog, private Ui::MainDialog
 {
     Q_OBJECT
 public:
-    MainDialog(QWidget *parent, Chat::Engine *chatEngine);
+    MainDialog(QWidget *parent, const QString &appName,
+        Chat::Engine *chatEngine);
 
 private slots:
     void textReceived(QString text, QString senderNick);
@@ -30,6 +31,8 @@ private:
     void appendLine(const QString &text, const QString &style);
     void appendText(const QString &text, const QString &style);
     void appendNewLine();
+
+    virtual void keyPressEvent(QKeyEvent *e) override;
 };
 
 #endif // MAINDIALOG_H
