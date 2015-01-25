@@ -1,5 +1,7 @@
-*private.txt
-Release
+/*private.txt
+/Release
+/src/release
+/src/debug
 
 # C++ objects and libs
 
@@ -25,6 +27,9 @@ qrc_*.cpp
 ui_*.h
 Makefile*
 *-build-*
+*_plugin_import.cpp
+object_script.*.Debug
+object_script.*.Release
 
 # QtCreator
 
